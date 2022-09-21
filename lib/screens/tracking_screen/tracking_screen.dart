@@ -64,7 +64,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 20.0, right: 20),
+          padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
           child: Container(
             child: Center(
               child: TextFormField(
@@ -95,14 +95,15 @@ class _TrackingScreenState extends State<TrackingScreen> {
         ),
         ElevatedButton(
             onPressed: () => scanBarcodeNormal(),
-            child: Text('Start barcode scan')),
+            child: Text('Skeniraj barkod')),
         ElevatedButton(
             onPressed: () => scanQR(),
-            child: Text('Start QR scan')),
-        ElevatedButton(
-            onPressed: () => startBarcodeScanStream(),
-            child: Text('Start barcode scan stream')),
-        Text('Scan result : $_scanBarcode\n',
+            child: Text('Skeniraj QR kod')),
+        SizedBox(height: 10),
+        // ElevatedButton(
+        //     onPressed: () => startBarcodeScanStream(),
+        //     child: Text('Start barcode scan stream')),
+        Text('Rezultat skeniranja : $_scanBarcode\n',
             style: TextStyle(fontSize: 20)),
       ],
     );
