@@ -1,3 +1,4 @@
+import 'package:flex_mobile_app/logic/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -33,6 +34,8 @@ class Variables with ChangeNotifier, DiagnosticableTreeMixin {
   String startingValueStandardDelivery = "";
   String startingValueSpecialDelivery = "";
   String startingValueSpecialType = "";
+  String? loginEmail = SharedPrefs().prefs?.getString("email");
+  String? loginPassword = SharedPrefs().prefs?.getString("password");
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

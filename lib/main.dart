@@ -1,5 +1,6 @@
 import 'package:flex_mobile_app/provider/sum.dart';
 import 'package:flex_mobile_app/provider/variables.dart';
+import 'package:flex_mobile_app/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => OverallPrice()),
         ChangeNotifierProvider(create: (_) => Variables()),
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Flex kurirska sluzba",
       theme: ThemeData(),
-      home: LoginScreen(),
+      home: context.read<Variables>().loginEmail == null || context.read<Variables>().loginPassword == null ? LoginScreen() : DashboardScreen(),
     );
   }
 }

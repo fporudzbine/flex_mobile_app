@@ -5,6 +5,9 @@ import 'package:flex_mobile_app/screens/save_data_screen/save_data_screen.dart';
 import 'package:flex_mobile_app/screens/tracking_screen/tracking_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/variables.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);

@@ -5,6 +5,7 @@ import 'package:flex_mobile_app/screens/login_screen/login_screen.dart';
 import 'package:flex_mobile_app/logic/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../logic/user_auth.dart';
 
@@ -429,7 +430,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Kućni broj",
-                                enabledBorder: InputBorder.none),
+                                enabledBorder: InputBorder.none,),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
                         ),
                       ),
@@ -478,6 +483,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 border: InputBorder.none,
                                 hintText: "Poštanski broj",
                                 enabledBorder: InputBorder.none),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
                         ),
                       ),
@@ -526,6 +535,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 border: InputBorder.none,
                                 hintText: "Telefon",
                                 enabledBorder: InputBorder.none),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
                         ),
                       ),
@@ -583,6 +596,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 SizedBox(height: 40),
                 GestureDetector(
                   onTap: () async {
+                    if(regPasswordController != confirmPasswordController){
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("GREŠKA"),
+                          content:
+                          Text("Lozinka nije potvrđena"),
+                          actions: [
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
                     UserAuth userAuthService = UserAuth(
                         firebaseAuth: FirebaseAuth.instance,
                         fireStore: FirebaseFirestore.instance);
@@ -597,11 +628,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         postalNumberController.text,
                         phoneController.text,
                         contactPersonController.text);
-                    print("REGISTRATION!!!!!");
-                    print("REG EMAIL: ${emailController.text}");
-                    print("REG CITY: ${cityController.text}");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginScreen()));
+                    }
                   },
                   child: Container(
                     height: 60,

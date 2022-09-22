@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flex_mobile_app/logic/shared_prefs.dart';
+import 'package:flex_mobile_app/screens/login_screen/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -382,7 +383,7 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                             isEnabled = false;
                           }else if(isEnabled == false){
                             isEnabled = true;
-                          };
+                          }
                         });
                         UserAuth userAuthService = UserAuth(
                             firebaseAuth: FirebaseAuth.instance,
@@ -407,7 +408,7 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                         );
                       },
                       child: Container(
-                        height: 60,
+                        height: 50,
                         width: 260,
                         decoration: BoxDecoration(
                             boxShadow: [
@@ -432,6 +433,44 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                                   color: Colors.white, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:8.0, bottom: 8),
+                    child: Text("ili", style: TextStyle(fontSize: 16, color: Colors.grey),),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await SharedPrefs().prefs?.clear();
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                            LoginScreen()), (Route<dynamic> route) => false);
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 260,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          color: Colors.red,
+                          border: Border.all(color: Colors.white),
+                          // borderRadius: BorderRadius.circular(40)
+                        ),
+                        child: Center(
+                          child: Text("ODJAVI SE",
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),

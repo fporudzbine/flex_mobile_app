@@ -5,9 +5,11 @@ import 'package:flex_mobile_app/screens/registration_screen/registration_screen.
 import 'package:flex_mobile_app/logic/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../logic/user_auth.dart';
 import '../../models/user.dart';
+import '../../provider/variables.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
