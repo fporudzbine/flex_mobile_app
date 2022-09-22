@@ -428,9 +428,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             style: TextStyle(fontSize: 16),
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Kućni broj",
-                                enabledBorder: InputBorder.none,),
+                              border: InputBorder.none,
+                              hintText: "Kućni broj",
+                              enabledBorder: InputBorder.none,
+                            ),
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly
@@ -596,13 +597,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 SizedBox(height: 40),
                 GestureDetector(
                   onTap: () async {
-                    if(regPasswordController != confirmPasswordController){
+                    if (nameSurnameController.text.isEmpty ||
+                        regUserNameController.text.isEmpty ||
+                        emailController.text.isEmpty ||
+                        regPasswordController.text.isEmpty ||
+                        cityController.text.isEmpty ||
+                        addressController.text.isEmpty ||
+                        postalNumberController.text.isEmpty ||
+                        phoneController.text.isEmpty) {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
                           title: Text("GREŠKA"),
-                          content:
-                          Text("Lozinka nije potvrđena"),
+                          content: Text("Nisu popunjena sva obavezna polja"),
+                          actions: [
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (regPasswordController.text !=
+                        confirmPasswordController.text) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("GREŠKA"),
+                          content: Text("Lozinka nije potvrđena"),
                           actions: [
                             TextButton(
                               child: Text("OK"),
@@ -614,22 +638,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       );
                     } else {
-                    UserAuth userAuthService = UserAuth(
-                        firebaseAuth: FirebaseAuth.instance,
-                        fireStore: FirebaseFirestore.instance);
-                    await userAuthService.signUp(
-                        emailController.text,
-                        regPasswordController.text,
-                        nameSurnameController.text,
-                        regUserNameController.text,
-                        cityController.text,
-                        addressController.text,
-                        homeNumberController.text,
-                        postalNumberController.text,
-                        phoneController.text,
-                        contactPersonController.text);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                      UserAuth userAuthService = UserAuth(
+                          firebaseAuth: FirebaseAuth.instance,
+                          fireStore: FirebaseFirestore.instance);
+                      await userAuthService.signUp(
+                          emailController.text,
+                          regPasswordController.text,
+                          nameSurnameController.text,
+                          regUserNameController.text,
+                          cityController.text,
+                          addressController.text,
+                          homeNumberController.text,
+                          postalNumberController.text,
+                          phoneController.text,
+                          contactPersonController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
                     }
                   },
                   child: Container(

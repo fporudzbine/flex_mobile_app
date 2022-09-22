@@ -3,13 +3,13 @@ import 'package:flex_mobile_app/screens/registration_screen/registration_screen.
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPrefs{
+class SharedPrefs {
   SharedPrefs._private();
 
   SharedPreferences? prefs;
 
   factory SharedPrefs() {
-    if (!GetIt.instance.isRegistered<SharedPrefs>()){
+    if (!GetIt.instance.isRegistered<SharedPrefs>()) {
       GetIt.instance.registerSingleton(SharedPrefs._private());
     }
     return GetIt.instance<SharedPrefs>();
@@ -19,18 +19,17 @@ class SharedPrefs{
     prefs = await SharedPreferences.getInstance();
   }
 
-   setValue (
-        String nameSurname,
-        String regUserName,
-        String email,
-        String regPassword,
-        String city,
-        String address,
-        String homeNumber,
-        String postalNumber,
-        String phone,
-        String contactPerson
-       ) async {
+  setValue(
+      String nameSurname,
+      String regUserName,
+      String email,
+      String regPassword,
+      String city,
+      String address,
+      String homeNumber,
+      String postalNumber,
+      String phone,
+      String contactPerson) async {
     await prefs?.setString("nameSurname", nameSurname);
     await prefs?.setString("username", regUserName);
     await prefs?.setString("email", email);
@@ -42,14 +41,15 @@ class SharedPrefs{
     await prefs?.setString("phone", phone);
     await prefs?.setString("contactPerson", contactPerson);
   }
-  updateValue (
-      String nameSurname,
-      String city,
-      String address,
-      String homeNumber,
-      String postalNumber,
-      String phone,
-      String contactPerson,
+
+  updateValue(
+    String nameSurname,
+    String city,
+    String address,
+    String homeNumber,
+    String postalNumber,
+    String phone,
+    String contactPerson,
   ) async {
     await prefs?.setString("nameSurname", nameSurname);
     await prefs?.setString("city", city);
@@ -60,7 +60,7 @@ class SharedPrefs{
     await prefs?.setString("contactPerson", contactPerson);
   }
 
-  UserModel getValue () {
+  UserModel getValue() {
     String? nameSurname = prefs?.getString("nameSurname");
     String? username = prefs?.getString("username");
     String? email = prefs?.getString("email");
@@ -71,8 +71,39 @@ class SharedPrefs{
     String? postalNumber = prefs?.getString("postalNumber");
     String? phone = prefs?.getString("phone");
     String? contactPerson = prefs?.getString("contactPerson");
-    return UserModel(nameSurname: nameSurname ?? "",username: username ?? "", email: email ?? "", password: password ?? "", city: city ?? "", address: address ?? "", homeNumber: homeNumber ?? "", postalNumber: postalNumber ?? "", phone: phone ?? "", contactPerson: contactPerson ?? "");
+    return UserModel(
+        nameSurname: nameSurname ?? "",
+        username: username ?? "",
+        email: email ?? "",
+        password: password ?? "",
+        city: city ?? "",
+        address: address ?? "",
+        homeNumber: homeNumber ?? "",
+        postalNumber: postalNumber ?? "",
+        phone: phone ?? "",
+        contactPerson: contactPerson ?? "");
   }
 
-
+  removeUserInfo(
+      String nameSurname,
+      String regUserName,
+      String email,
+      String regPassword,
+      String city,
+      String address,
+      String homeNumber,
+      String postalNumber,
+      String phone,
+      String contactPerson) async {
+    await prefs?.setString("nameSurname", "");
+    await prefs?.setString("username", "");
+    await prefs?.setString("email", "");
+    await prefs?.setString("password", "");
+    await prefs?.setString("city", "");
+    await prefs?.setString("address", "");
+    await prefs?.setString("homeNumber", "");
+    await prefs?.setString("postalNumber", "");
+    await prefs?.setString("phone", "");
+    await prefs?.setString("contactPerson", "");
+  }
 }
