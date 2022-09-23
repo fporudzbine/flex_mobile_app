@@ -150,8 +150,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         loggedUser.phone,
                         loggedUser.contactPerson,
                     );
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
-                  },
+                    // if(emailController.text != FirebaseAuth.instance.currentUser?.email || passwordController != loggedUser.password){
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (context) => AlertDialog(
+                    //       title: Text("GREŠKA"),
+                    //       content: Text("Pogrešan e-mail ili lozinka"),
+                    //       actions: [
+                    //         TextButton(
+                    //           child: Text("OK"),
+                    //           onPressed: () {
+                    //             Navigator.of(context).pop();
+                    //           },
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   );
+                    // } else {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => DashboardScreen()));
+                      // }
+                    },
                   child: Container(
                     height: 60,
                     width: 260,

@@ -46,8 +46,8 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                     child: Container(
                       color: Color(0xfff8f4f4),
                       width: 300,
-                      height: 80,
-                      child: Text("POPUNITE FORMU I SAČUVAJTE SVOJE PODATKE", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffc0ad93), fontSize: 24), textAlign: TextAlign.center,)
+                      height: 40,
+                      child: Text("PODACI O KORISNIKU", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffc0ad93), fontSize: 24), textAlign: TextAlign.center,)
                     ),
                   ),
                   SizedBox(height: 20),
@@ -410,76 +410,74 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                         setState(() {
                         });
                       },
-                      child: Container(
-                        height: 50,
-                        width: 260,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-                            color: Colors.red,
-                            border: Border.all(color: Colors.white),
-                            // borderRadius: BorderRadius.circular(40)
-                        ),
-                        child: Center(
-                            child: !isEnabled ? Text("IZMENI PODATKE",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ) : Text("SACUVAJ PODATKE",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 140,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: Colors.red,
+                                border: Border.all(color: Colors.white),
+                                // borderRadius: BorderRadius.circular(40)
+                            ),
+                            child: Center(
+                                child: !isEnabled ? Text("IZMENI PODATKE",
                               style: TextStyle(
                                   color: Colors.white, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
+                            ) : Text("SAČUVAJ",
+                                  style: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                             ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8),
-                    child: Text("ili", style: TextStyle(fontSize: 16, color: Colors.grey),),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                    child: GestureDetector(
-                      onTap: () async {
-                        await SharedPrefs().prefs?.clear();
-                        print("ERASED PREF: ${nameSurnameController.text}");
-                        print("ERASED PREF: ${cityController.text}");
-                        print("ERASED PREF: ${addressController.text}");
-                        setState(() {
-                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                              LoginScreen()), (Route<dynamic> route) => false);
-                        });
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 260,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                          color: Colors.red,
-                          border: Border.all(color: Colors.white),
-                          // borderRadius: BorderRadius.circular(40)
-                        ),
-                        child: Center(
-                          child: Text("ODJAVI SE",
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () async {
+                              await SharedPrefs().prefs?.clear();
+                              print("ERASED PREF: ${nameSurnameController.text}");
+                              print("ERASED PREF: ${cityController.text}");
+                              print("ERASED PREF: ${addressController.text}");
+                              setState(() {
+                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                    LoginScreen()), (Route<dynamic> route) => false);
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 140,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: Colors.red,
+                                border: Border.all(color: Colors.white),
+                                // borderRadius: BorderRadius.circular(40)
+                              ),
+                              child: Center(
+                                child: Text("ODJAVI SE",
+                                  style: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
