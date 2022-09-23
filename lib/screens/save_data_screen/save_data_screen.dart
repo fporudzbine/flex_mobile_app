@@ -15,20 +15,21 @@ class SaveDataScreen extends StatefulWidget {
   State<SaveDataScreen> createState() => _SaveDataScreenState();
 }
 
-TextEditingController nameSurnameController = TextEditingController(text: SharedPrefs().getValue().nameSurname);
-TextEditingController cityController = TextEditingController(text: SharedPrefs().getValue().city);
-TextEditingController addressController = TextEditingController(text: SharedPrefs().getValue().address);
-TextEditingController homeNumberController = TextEditingController(text: SharedPrefs().getValue().homeNumber);
-TextEditingController postalNumberController = TextEditingController(text: SharedPrefs().getValue().postalNumber);
-TextEditingController phoneController = TextEditingController(text: SharedPrefs().getValue().phone);
-TextEditingController contactController = TextEditingController(text: SharedPrefs().getValue().contactPerson);
-TextEditingController emailController = TextEditingController(text: SharedPrefs().getValue().email);
-
 bool isEnabled = false;
 
 class _SaveDataScreenState extends State<SaveDataScreen> {
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController nameSurnameController = TextEditingController(text: SharedPrefs().getValue().nameSurname);
+    TextEditingController cityController = TextEditingController(text: SharedPrefs().getValue().city);
+    TextEditingController addressController = TextEditingController(text: SharedPrefs().getValue().address);
+    TextEditingController homeNumberController = TextEditingController(text: SharedPrefs().getValue().homeNumber);
+    TextEditingController postalNumberController = TextEditingController(text: SharedPrefs().getValue().postalNumber);
+    TextEditingController phoneController = TextEditingController(text: SharedPrefs().getValue().phone);
+    TextEditingController contactController = TextEditingController(text: SharedPrefs().getValue().contactPerson);
+
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xfff8f4f4),
@@ -446,8 +447,13 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                     child: GestureDetector(
                       onTap: () async {
                         await SharedPrefs().prefs?.clear();
-                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                            LoginScreen()), (Route<dynamic> route) => false);
+                        print("ERASED PREF: ${nameSurnameController.text}");
+                        print("ERASED PREF: ${cityController.text}");
+                        print("ERASED PREF: ${addressController.text}");
+                        setState(() {
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                              LoginScreen()), (Route<dynamic> route) => false);
+                        });
                       },
                       child: Container(
                         height: 50,

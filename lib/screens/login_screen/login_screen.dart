@@ -24,6 +24,10 @@ TextEditingController passwordController = TextEditingController();
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    print("*********************");
+    print(SharedPrefs().getValue().nameSurname);
+    print("?????????????????????/");
+    print(SharedPrefs().getValue().city);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xfff8f4f4),
@@ -77,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Username",
+                                hintText: "Korisničko ime",
                                 enabledBorder: InputBorder.none),
                           ),
                         ),
@@ -121,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscureText: true,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Password",
+                                hintText: "Lozinka",
                                 enabledBorder: InputBorder.none),
                           ),
                         ),
@@ -173,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 40),
-                Text("Nemas nalog?", style: TextStyle(fontSize: 14, color: Colors.grey),),
+                Text("Nemaš nalog?", style: TextStyle(fontSize: 14, color: Colors.grey),),
                 SizedBox(height: 10),
                 GestureDetector(
                   onTap: (){

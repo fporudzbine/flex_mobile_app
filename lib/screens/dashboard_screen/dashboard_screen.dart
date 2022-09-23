@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../logic/shared_prefs.dart';
 import '../../provider/variables.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -35,6 +36,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("DASHBOARDNAMESURNAME");
+    print(SharedPrefs().getValue().nameSurname);
+    print("DASHBOARDCITY");
+    print(SharedPrefs().getValue().city);
     return SafeArea(
         child: Scaffold(
             backgroundColor: Color(0xfff8f4f4),
