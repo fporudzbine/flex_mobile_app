@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import '../../labels.dart';
+import '../../logic/shared_prefs.dart';
 
 class CourierInviteScreen extends StatefulWidget {
   const CourierInviteScreen({Key? key}) : super(key: key);
@@ -187,6 +188,14 @@ class _CourierInviteScreenState extends State<CourierInviteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController controllerSenderNameSurname = TextEditingController(text: SharedPrefs().getValue().nameSurname);
+    TextEditingController controllerSenderCity = TextEditingController(text: SharedPrefs().getValue().city);
+    TextEditingController controllerSenderAddress = TextEditingController(text: SharedPrefs().getValue().address);
+    TextEditingController controllerSenderHomeNumber = TextEditingController(text: SharedPrefs().getValue().homeNumber);
+    TextEditingController controllerSenderPostalNumber = TextEditingController(text: SharedPrefs().getValue().postalNumber);
+    TextEditingController controllerSenderPhone = TextEditingController(text: SharedPrefs().getValue().phone);
+    TextEditingController controllerSenderContact = TextEditingController(text: SharedPrefs().getValue().contactPerson);
+    TextEditingController controllerSenderEmail = TextEditingController(text: SharedPrefs().getValue().email);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,

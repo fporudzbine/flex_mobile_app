@@ -407,6 +407,8 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
                             phoneController.text,
                             contactController.text,
                         );
+                        setState(() {
+                        });
                       },
                       child: Container(
                         height: 50,
