@@ -150,27 +150,68 @@ class _LoginScreenState extends State<LoginScreen> {
                         loggedUser.phone,
                         loggedUser.contactPerson,
                     );
-                    // if(emailController.text != FirebaseAuth.instance.currentUser?.email || passwordController != loggedUser.password){
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (context) => AlertDialog(
-                    //       title: Text("GREŠKA"),
-                    //       content: Text("Pogrešan e-mail ili lozinka"),
-                    //       actions: [
-                    //         TextButton(
-                    //           child: Text("OK"),
-                    //           onPressed: () {
-                    //             Navigator.of(context).pop();
-                    //           },
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   );
-                    // } else {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => DashboardScreen()));
-                      // }
-                    },
+                    CollectionReference _collectionRef =
+                    FirebaseFirestore.instance.collection('users');
+                    print("COLLECTIOB ${_collectionRef.parameters}");
+                    QuerySnapshot querySnapshot = await _collectionRef.get();
+                    print("QUERYSNAP: ${querySnapshot.docs}");
+                    final users = querySnapshot.docs.map((doc) {
+                      UserModel user = UserModel(
+                        nameSurname: doc['nameSurname'],
+                        username: doc['username'],
+                        email: doc['email'],
+                        password: doc['password'],
+                        city: doc['city'],
+                        address: doc['address'],
+                        homeNumber: doc['homeNumber'],
+                        postalNumber: doc['postalNumber'],
+                        phone: doc['phone'],
+                        contactPerson: doc['contactPerson'],
+                      );
+                      return user;
+                    }).toList();
+                    for (UserModel user in users) {
+                      if(emailController.text.isEmpty || passwordController.text.isEmpty){
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("GREŠKA"),
+                            content: Text("Unesite kredencijale"),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (user.email != emailController.text ||
+                          user.password != passwordController.text) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("GREŠKA"),
+                            content: Text("Korisnik nije pronađen"),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DashboardScreen()));
+                      }
+                    }
+                  },
                   child: Container(
                     height: 60,
                     width: 260,
