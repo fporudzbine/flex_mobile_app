@@ -21,6 +21,7 @@ class Variables with ChangeNotifier, DiagnosticableTreeMixin {
   TextEditingController controllerSpecialPersonalDelivery = TextEditingController();
   TextEditingController controllerSpecialAmountRSD = TextEditingController();
   TextEditingController controllerSpecialFinalAmount = TextEditingController();
+  TextEditingController controllerPackageNumber = TextEditingController();
   bool isCheckedReturnReceipt = false;
   bool isCheckedBackDocumentation = false;
   bool isCheckedPaidResponse = false;

@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../provider/variables.dart';
 
 class TrackingScreen extends StatefulWidget {
   const TrackingScreen({Key? key}) : super(key: key);
@@ -94,9 +97,55 @@ class _TrackingScreenState extends State<TrackingScreen> {
           ),
         ),
         ElevatedButton(
+          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+          child: Text("Sve moje pošiljke"),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    scrollable: true,
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          textAlign: TextAlign.center,
+                          controller: context.read<Variables>().controllerPackageNumber,
+                          cursorColor: Colors.red,
+                          decoration: InputDecoration(
+                            hintText: 'Upiši broj pošiljke',
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.red
+                                ),
+                          ),
+                        ),
+                      ),
+                      ],
+                    ),
+                    actions: [
+                      ElevatedButton(
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+                          child: Text("Zatvori"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                    ],
+                  );
+                });
+          },
+        ),
+        ElevatedButton(
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
             onPressed: () => scanBarcodeNormal(),
             child: Text('Skeniraj barkod')),
         ElevatedButton(
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
             onPressed: () => scanQR(),
             child: Text('Skeniraj QR kod')),
         SizedBox(height: 10),
