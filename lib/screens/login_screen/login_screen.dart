@@ -152,9 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                     CollectionReference _collectionRef =
                     FirebaseFirestore.instance.collection('users');
-                    print("COLLECTIOB ${_collectionRef.parameters}");
                     QuerySnapshot querySnapshot = await _collectionRef.get();
-                    print("QUERYSNAP: ${querySnapshot.docs}");
                     final users = querySnapshot.docs.map((doc) {
                       UserModel user = UserModel(
                         nameSurname: doc['nameSurname'],
@@ -170,47 +168,32 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       return user;
                     }).toList();
+                    bool userFound = false;
                     for (UserModel user in users) {
-                      if(emailController.text.isEmpty || passwordController.text.isEmpty){
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text("GREŠKA"),
-                            content: Text("Unesite kredencijale"),
-                            actions: [
-                              TextButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      } else if (user.email != emailController.text ||
-                          user.password != passwordController.text) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text("GREŠKA"),
-                            content: Text("Korisnik nije pronađen"),
-                            actions: [
-                              TextButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
+                      if (user.email == emailController.text ||
+                          user.password == passwordController.text) {
+                        userFound = true;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DashboardScreen()));
                       }
                     }
+                    userFound ? print('User found') : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("GREŠKA"),
+                          content: Text("Pogrešan email ili lozinka"),
+                          actions: [
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
                   },
                   child: Container(
                     height: 60,
