@@ -3,6 +3,7 @@ import 'package:flex_mobile_app/provider/variables.dart';
 import 'package:flex_mobile_app/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'logic/shared_prefs.dart';
 import 'provider/overall_price.dart';
@@ -10,6 +11,7 @@ import 'screens/login_screen/login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Firebase.initializeApp(
     name: "flex_mobile_app",
     options: FirebaseOptions(
@@ -33,6 +35,7 @@ Future<void> main() async {
       child: MyApp(),
     ),
   );
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {

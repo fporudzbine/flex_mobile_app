@@ -26,8 +26,6 @@ class _PricingScreenState extends State<PricingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Column(
@@ -1664,7 +1662,5 @@ class _PricingScreenState extends State<PricingScreen>
             ],
           ),
         );
-      },
-    );
   }
 }
