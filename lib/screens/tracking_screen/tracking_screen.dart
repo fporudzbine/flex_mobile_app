@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flex_mobile_app/models/form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,6 +18,7 @@ class TrackingScreen extends StatefulWidget {
 }
 
 class _TrackingScreenState extends State<TrackingScreen> {
+  List<FormModel> forms = [];
   String _scanBarcode = 'Unknown';
 
   Future<void> startBarcodeScanStream() async {
@@ -43,7 +47,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
     });
   }
 
-  Future<void> scanBarcodeNormal() async {
+  Future<void> scanBarcodeNormal(String id) async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -57,15 +61,93 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
     setState(() {
       _scanBarcode = barcodeScanRes;
+      FirebaseFirestore.instance.collection('form').doc(id).update({
+        'barcodeScanResult' : barcodeScanRes
+      });
     });
+  }
+
+  Future<List<FormModel>> getForms() async {
+    CollectionReference _collectionRef =
+    FirebaseFirestore.instance.collection('form');
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    forms = querySnapshot.docs.map((doc) {
+      FormModel form = FormModel(
+        id: doc.id,
+        senderNameSurname: doc['senderNameSurname'],
+        senderCity: doc['senderCity'],
+        senderAddress: doc['senderAddress'],
+        senderHomeNumber: doc['senderHomeNumber'],
+        senderPostalNumber: doc['senderPostalNumber'],
+        senderPhone: doc['senderPhone'],
+        senderContactPerson: doc['senderContactPerson'],
+        senderEmail: doc['senderEmail'],
+        senderNote: doc['senderNote'],
+        receiverNameSurname: doc['receiverNameSurname'],
+        receiverCity: doc['receiverCity'],
+        receiverAddress: doc['receiverAddress'],
+        receiverHomeNumber: doc['receiverHomeNumber'],
+        receiverPostalNumber: doc['receiverPostalNumber'],
+        receiverPhone: doc['receiverPhone'],
+        receiverContactPerson: doc['receiverContactPerson'],
+        receiverNote: doc['receiverNote'],
+        packageNumber: doc['packageNumber'],
+        packageDelivery: doc['packageDelivery'],
+        packageWeight: doc['packageWeight'],
+        packageContent: doc['packageContent'],
+        packageBuyOut: doc['packageBuyOut'],
+        packageValue: doc['packageValue'],
+        additionalServices: doc['additionalServices'],
+        packagePayment: doc['packagePayment'],
+        bankAccountNumber: doc['bankAccountNumber'],
+      );
+      return form;
+    }).toList();
+    return forms;
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        FutureBuilder(
+          future: getForms(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if(snapshot.hasData) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                child: Container(
+                  height: 160,
+                  child: ListView.builder(
+                    itemCount: forms.length,
+                    itemBuilder: (context, i) {
+                      return Container(
+                        child: ListTile(
+                          title: Text(forms[i].id),
+                          trailing: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.red)),
+                              onPressed: () {
+                                scanBarcodeNormal(forms[i].id);
+                              },
+                              child: Text('Skeniraj barkod')),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else if (snapshot.hasError){
+              return Center(
+                  child: CircularProgressIndicator(),
+              );
+            }
+            return Container();
+          },
+        ),
         Padding(
           padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
           child: Container(
@@ -142,7 +224,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
         ),
         ElevatedButton(
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-            onPressed: () => scanBarcodeNormal(),
+            onPressed: () => scanBarcodeNormal("bre"),
             child: Text('Skeniraj barkod')),
         ElevatedButton(
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),

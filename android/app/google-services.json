@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "291258582045",
-    "project_id": "flex-mobileapp",
-    "storage_bucket": "flex-mobileapp.appspot.com"
+    "project_number": "337659174249",
+    "project_id": "flexpozivnicazakurira",
+    "storage_bucket": "flexpozivnicazakurira.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291258582045:android:4de00f4039db632a5472f4",
+        "mobilesdk_app_id": "1:337659174249:android:628e411ad298b1de0bf1f8",
         "android_client_info": {
           "package_name": "com.example.flex_mobile_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "291258582045-nmmlgv26qnejgsac0cgv3f0ubvpqajig.apps.googleusercontent.com",
+          "client_id": "337659174249-67fgr26do6tc3afcdqkvpsnj4nu55tgh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCIo_JOXlwO-WldVRO3oiZrzpFgIN3WOFw"
+          "current_key": "AIzaSyCtTbYz6EtWxea7wvY5TlE-BjmS6rUUNjw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "291258582045-nmmlgv26qnejgsac0cgv3f0ubvpqajig.apps.googleusercontent.com",
+              "client_id": "337659174249-67fgr26do6tc3afcdqkvpsnj4nu55tgh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
